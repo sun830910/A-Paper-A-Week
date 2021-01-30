@@ -6,6 +6,8 @@
 
 使用大量文本语料和知识图谱来训练，使得模型可以同时获得丰富的文本语义和知识。
 
+如果不知道「Blowin' in the Wind」和「Chronicles: Volume One」分别是歌曲与书籍，那么模型很难识别它们是 Bob Dylan 的两个工作。即在实体类型任务中，模型识别不出 Bob Dylan 同时是歌曲作家和书籍作者。
+
 ## Introduction
 
 虽然之前的预训练语言模型（如：BERT）获得了非常好的结果，但却忽略了将知识信息融入语言理解中，虽然原先的预训练模型可以通过上下文学习获得词之间的关系，故认为丰富的知识可以让语言模型进行语言理解以及在知识驱动的任务（如：实体类型判别和关系分类）上表现的更好。
@@ -49,6 +51,10 @@ ERNIE可以分为两个模块：
 
 为了使得知识能输入预训练模型中而提出一训练任务-randomly masks some token-entity alignments and then requires the system to predict all corresponding entities based on aligned tokens.
 
+即随机 Mask 掉一些对齐了输入文本的命名实体，并要求模型从知识图谱中选择合适的实体以完成对齐。
+
+现存的预训练语言表征模型只利用局部上下文预测 Token，但 ERNIE 的新目标要求模型同时聚合上下文和知识事实的信息，并同时预测 Token 和实体，从而构建一种知识化的语言表征模型。
+
 为降低预测的空间，只需自实体序列中预测实体即可。
 
 与BERT的预训练任务相似，加入了一些错误在token-entity alignments任务中，
@@ -75,4 +81,4 @@ This paper modified input sequence with the mention mark token [ENT] can guide E
 
 # 结语
 
-在BERT的前车之鉴下引入了TransE算法对知识图谱中知识编码的后压入模型中，并尝试了实体替换的训练任务，据作者所言可以更好的进行一些知识驱动的任务（如：relation classification and entity typing）
+在BERT的前车之鉴下引入了TransE算法对知识图谱中知识编码的后压入模型中，并尝试了实体替换的训练任务，知识驱动型任务中效果显著超过当前最佳的 BERT，可以更好的进行一些知识驱动的任务（如：relation classification and entity typing，实体类型和关系分类）
