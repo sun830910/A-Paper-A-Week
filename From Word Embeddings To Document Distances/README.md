@@ -64,6 +64,12 @@ WMD 可以用来衡量两个文本文档之间的不相似性。
 
 
 
+## 小结
+
+比較LSI、LDA、BOW、TF-IDF等方法后，發現WMD確實可以減少錯誤分類率（error rate％）。
+
+
+
 ## 补充资料
 
 相关计算原理与细节建议参考这篇：https://zhuanlan.zhihu.com/p/145500656
