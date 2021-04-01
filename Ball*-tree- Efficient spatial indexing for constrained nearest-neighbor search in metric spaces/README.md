@@ -23,3 +23,51 @@ This paper's contributions are as follows:
 2. We propose heuristics for finding the best splitting hyperplane with respect to the seleceted axes
 3. In the search stage, we suggest an effcient algorithm for range-constrained NN search.
 
+
+
+## Preliminaries and related work
+
+There are two approaches for exact search:
+
+1. Compact partition indexes that directly partition the data points, such as KD-tree, cover-tree and ball-tree
+2. Pivot-based indexes that use a set of points, called pivots, to map the points to another space in which the distance is easier to compute.  
+
+  
+
+While pivot-based approaches are faster in medium-sized datasets, the required number of pivots is extremely large for high-dimensional datasets.  
+
+A ball-tree is a binary tree in which every node defines a D-dimensional hypersphere, or ball, containing a subset of the points to be searched. Each node of the tree represents a ball, that is a hyper-spherical partition.  
+
+  
+
+## Space partitioning
+
+### Ball-tree space partitioning
+
+Ball-tree is build using a divide-and-conquer approach. Initially, ball-tree has only one (root) node and all data points are assigned to it. In each step, the partition corresponding to each node is split into two sub-partitions.
+
+1. Select the farthest point from centroid of points in pi as the first (left) child pivot piL.
+2. Select the farthest point from piL as the second (right) child pivot piR.
+3. Assign each of the data points in pi to the partition whose pivot is closer.
+4. Assign the new sub-partitions as children of vi in the ball-tree.
+
+
+
+## Ball*-tree
+
+Ball-tree splits have two shortcomings:
+
+1. When splitting a partition, the number of points assigned to each sub-partition is not taken into account. As a result, the partitions do not necessarily have the same number of data points and the resulting tree is unbalnced.
+2. The distribution of the points is not considered for defining the separating hyperplane, but the hyperplane is determined by only the two farthest points.  
+
+  
+
+The intuition behind ball*-tree is to detect the best direction for splitting the data points.  
+
+This direction is simply extracted by the first principal component.  
+
+In ball*-tree, the hyperplane is determined in three steps:
+
+1. Apply Principal Component Analysis(PCA) and find the most significant (first) eigenvector w1.
+2. Map the data points to the axis corresponding to w1.
+3. Find a hyperplane that is perpendicular to w1 and splits the data points in a balanced manner. The splitting criteria is discussed further.
