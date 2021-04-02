@@ -71,3 +71,17 @@ In ball*-tree, the hyperplane is determined in three steps:
 1. Apply Principal Component Analysis(PCA) and find the most significant (first) eigenvector w1.
 2. Map the data points to the axis corresponding to w1.
 3. Find a hyperplane that is perpendicular to w1 and splits the data points in a balanced manner. The splitting criteria is discussed further.
+
+
+
+In ball*-tree, our target is to detect the most significant direction of the data. Hence, we apply PCA to transform the data points to a single dimension.  
+
+  
+
+In ball*-tree, the splitting hyperplane is perpendicular to the eugebvectir w1 and us deternubed by w1\* x-b=0.  
+
+其目标函数求最小化的第一个部分是为了要让N1和N2两个群中的数量接近且靠近N/2，第二个部分则是为了让这个切分的点尽量接近于圆心的位置。  
+
+
+
+其大意应为使用PCA将所有数据映射至一个一维向量(相当于找到了最有效分成两类的超平面)上，再通过这个一维向量上进行操作找到离圆心最接近同时最有效将两侧数据数量平衡的点进行切分。
